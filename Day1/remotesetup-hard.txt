@@ -1,0 +1,93 @@
+Setting up a remote session
+-all the tough works been setup already in container
+-however, if you would like to recreate the steps i've taken, 
+-go to the bottom of the page
+
+
+-------------------
+- cd container
+- docker build -t bufferme .
+- docker run -p 1337:1337 bufferme:latest
+- give it a few minutes before attempting to connect..
+
+(if you're on your machine, go to a separate terminal and do..)
+- ncat localhost 1337
+
+(if you're on a separate machine, trying to connect to the host to play..)
+- ip addr  <-- grab the ip
+- ncat <ip here> 1337
+
+
+
+Method for building the docker ( for future reference )
+This method requires improvement ( implement chroot jail for sh sessions )
+--------------------
+
+- mkdir app
+- cd app
+# compile the source code as you would originally do (see localsetup file)
+# move the compiled code to app
+- ldd <compiled code>
+# bottom two are the linked libraries that are used to run the program
+# its usually glibc and ld-linker
+# im going to assume your libc is located /usr/lib
+- cp /usr/lib/libc.so.6 .
+- cp /usr/lib/ld-linux-x86_64.so.2 .
+
+# ldd shows that the compiled code still links to glibc from root filesystem
+# no good
+# link it to the local
+
+- patchelf --set-interpreter ./ld-linux-x86_64.so.2
+- patchelf --replace-needed libc.so.6 ./libc.so.6 <compiled code>
+
+# now you're done with that
+# create a flag.txt, the compiled code will somehow interact with that right?
+
+- mv /path/to/flag.txt .
+
+# create a xinetd and run.sh file
+# simply copy the template provided from here
+# change run.sh so that it runs your executable instead
+
+# from..
+```
+     cd /home/user && ./bufferme
+
+```
+# to ...
+```
+    cd /home/user && ./<compiled code>
+```
+
+
+- cd ..
+
+- vim Dockerfile
+# Just copy the template provided, change it up 
+# Specifically this part
+
+```
+RUN chown -R root:root . && \
+    chmod 444 flag.txt ASCIART.txt && \
+    chmod a+x bufferme ld-linux-x86-64.so.2 libc.so.6 && \
+    chmod +x /run.sh
+
+```
+
+# This sets the permissions for each file that was in the app directory
+# replace buffer ld.... with your libraries and executables
+# so it should look like
+
+```
+RUN chown -R root:root . && \     
+    chmod 444 flag.txt && \    
+    chmod a+x <compiled code> <library1> <library2>... && \ 
+    chmod +x /run.sh 
+```
+
+you're pretty much done..
+run the setup mentionned above to build and run the docker
+everything should work!
+
+
