@@ -91,3 +91,5 @@ run the setup mentionned above to build and run the docker
 everything should work!
 
 
+
+(P.S: in your C code, make sure to setbuf stdin,stderr, and stdout to 0!)
