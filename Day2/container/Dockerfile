@@ -7,7 +7,6 @@ RUN apt-get update -y && \
         
 RUN useradd -m user
 
-COPY seccomp /usr/lib/
 COPY app /home/user/              
 COPY run.sh /                     
 COPY xinetd /etc/xinetd.d/user    
@@ -15,9 +14,8 @@ COPY xinetd /etc/xinetd.d/user
 WORKDIR /home/user
 
 RUN chown -R root:root . && \     
-    chmod 444 oskar && \    
-    chmod a+x shellcodeme ld-linux-x86-64.so.2 libc.so.6 && \
-    chmod a+x /usr/lib/libseccomp.so.2 && \
+    chmod 444 flag.txt ASCIART.txt && \    
+    chmod a+x bufferme ld-linux-x86-64.so.2 libc.so.6 && \ 
     chmod +x /run.sh 
 
 

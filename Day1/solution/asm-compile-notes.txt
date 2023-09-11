@@ -1,0 +1,25 @@
+nasm -f [elf64] shellcode.asm
+          /\
+           32 bit or 64
+
+ld -m [elf_x86_64] shellcode.o -o shellcode
+         /\ 
+         i386 for 32 bit
+
+objdump -D shellcode 
+
+
+Grabbing the individual bytes is a pain, here's a script that
+extracts everything but there are many other ways to do this as well
+P.S - Uses RUBY !!!
+
+
+objdump -D shellcode |  ./dumpShellcode.rb
+
+in case ruby doesn't work out for you...
+
+objdump -D shellcode | grep -Po '\s\K[a-f0-9]{2}(?=\s)' | sed 's/^/\\x/g' | perl -pe 's/\r?\n//' | sed 's/$/\n/'
+
+
+
+

@@ -1,0 +1,11 @@
+The specifics of setting up this Docker manually
+is essentially the same for Day2 but with another library
+added to the /usr/lib directory of the image, which is basically
+only done because patchelf corrupts the file if trying to make
+it use the local shared library
+
+Theres also setup involved for created a jail so theres just a 
+minor tweak with permissions for the individual files, but the 
+gist of everything is essentially the same
+
+

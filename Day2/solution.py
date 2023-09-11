@@ -13,5 +13,5 @@ conn.sendline(payload)                                # Send our payload!
 text = conn.clean()                                   # What output did we get?
 print(text.decode())                                  # Print it back to us!
 
-conn.close()                                          # Close and set
+conn.close()                                          # Close and finish
 

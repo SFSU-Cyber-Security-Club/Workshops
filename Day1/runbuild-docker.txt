@@ -1,0 +1,15 @@
+docker build -t <docker-name> .
+
+docker run -p <external port>:<internal port set in docker build> <docker-name>:latest
+
+docker ps (find active running image)
+docker stop (id of docker)
+
+docker container prune (removes all inactive images)
+
+Let it simmer for a while once you run the docker, xinetd takes a while for it to boot it up 
+and actually "start" getting it to work
+
+
+
+

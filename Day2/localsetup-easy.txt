@@ -1,0 +1,12 @@
+To setup a local session, simply compile
+the source code with the following flags (disables mitigations)
+
+gcc overflowMe.c -o bufferme -fno-stack-protector -no-pie  -z relro
+    -----------     -------                 |       |         | disables randomized offsets to addresses
+       source       execs name              |     makes addresses static
+                                        disables buffer overflow protector lol
+
+you should be able to start right away by executing
+./bufferme 
+
+

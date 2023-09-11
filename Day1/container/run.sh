@@ -1,3 +1,3 @@
 #!/bin/sh
 
-cd /home/user && ./bufferme
+cd /home/user && ./shellcodeme

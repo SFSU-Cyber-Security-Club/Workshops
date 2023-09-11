@@ -1,6 +1,0 @@
-For some this may be their first buffer overflow..
-perhaps their first time touching a terminal..
-
-
-
-

