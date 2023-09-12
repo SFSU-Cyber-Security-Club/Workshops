@@ -1,2 +1,6 @@
 Check solutions/compile notes
 for the reexmplanation of it
+
+objdump -D <executable> | ./dumpShellCode
+                                |
+                                 depending on where the file is you should change to it
